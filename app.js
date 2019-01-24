@@ -18,8 +18,11 @@ app.post('/testpost', ((req, res, next) => {
   const responseSample = {
     response: req.body.payload
   }
+const reqLength = responseSample.response.length;
+
   const responseExpected = [];
-  for(let i=0; i<responseSample.response.length; i++){
+
+  for(let i=0; i<reqLength; i++){
     let respElem = responseSample.response[i];
       if(respElem["drm"] === true && respElem["episodeCount"] > 0) {
         responseExpected.push({
@@ -30,7 +33,7 @@ app.post('/testpost', ((req, res, next) => {
       }
     }
     res.status(200).json({
-      message: 'POST Works!',
+      // message: 'POST Works!',
       response: responseExpected
     });
   })
