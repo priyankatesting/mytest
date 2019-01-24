@@ -3,10 +3,11 @@ var bodyParser = require('body-parser')
 
 const app = express();
 const router = express.Router();
+
 app.use(bodyParser.json());
 
 //Sample GET
-app.get('/testget', ((req, res, next) => {
+app.get('/urlget', ((req, res, next) => {
     res.status(200).json({
       message: 'GET Works!'
     });
@@ -14,7 +15,7 @@ app.get('/testget', ((req, res, next) => {
 )
 
 //Sample POST
-app.post('/testpost', ((req, res, next) => {
+app.post('/urlpost', ((req, res, next) => {
   const responseSample = {
     response: req.body.payload
   }
