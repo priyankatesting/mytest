@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 var bodyParser = require('body-parser')
 
@@ -6,7 +8,7 @@ const router = express.Router();
 
 app.use(bodyParser.json());
 
-//Sample GET
+//Sample GET - Testing purpose only
 app.get('/urlget', ((req, res, next) => {
     res.status(200).json({
       message: 'GET Works!'
@@ -14,6 +16,7 @@ app.get('/urlget', ((req, res, next) => {
   })
 )
 
+//Error Handling
 app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({
@@ -24,12 +27,12 @@ app.use((error, req, res, next) => {
 //Sample POST
 app.post('/urlpost', ((req, res, next) => {
   const responseExpected = [];
-  const responseSample = {  response: req.body.payload }
-  const responseHeader = {  header: req.headers }
+  const requestSample = {  response: req.body.payload }
+  const requestHeader = {  header: req.headers }
 
 
-  //Header valid
-  if(responseHeader.header["content-type"] !== 'application/json'){
+  //Error Handling  - for Header valid
+  if(requestHeader.header["content-type"] !== 'application/json'){
     res.status(404).send({
       // message: 'POST Works!',
       response: {
@@ -38,19 +41,7 @@ app.post('/urlpost', ((req, res, next) => {
     });
   }
 
-if(responseSample){
-
-}
-else {
-  res.status(404).send({
-    // message: 'POST Works!',
-    response: {
-      error: "Could not decode request: JSON parsing failed"
-    }
-  });
-}
-
-//Length of array
+//Error Handling  - Length of array
 if(reqLength < 0 ){
   res.status(404).send({
     // message: 'POST Works!',
@@ -59,24 +50,26 @@ if(reqLength < 0 ){
     }
   });
 } else {
-const reqLength = responseSample.response.length;
+  //Length of the request
+const reqLength = requestSample.response.length;
 
-  for(let i=0; i<reqLength; i++){
-    let respElem = responseSample.response[i];
-      if(respElem["drm"] === true && respElem["episodeCount"] > 0) {
+//Loop through all objects of the request
+  for(let i=0; i<reqLength; i++) {
+    let reqElement = requestSample.response[i];
+    //Only if conditions are true, push to responseExpected array
+      if(reqElement["drm"] === true && reqElement["episodeCount"] > 0) {
         responseExpected.push({
-          image: respElem["image"].showImage,
-          slug:  respElem["slug"],
-          title: respElem["title"]
+          image: reqElement["image"].showImage,
+          slug:  reqElement["slug"],
+          title: reqElement["title"]
         })
       }
     }
     res.status(200).json({
-       length: reqLength,
       response: responseExpected
     });
 
-}
+  }
 
   })
 )
