@@ -40,7 +40,8 @@ app.post('/urlpost', ((req, res, next) => {
       }
     });
   }
-
+  //Length of the request
+const reqLength = requestSample.response.length;
 //Error Handling  - Length of array
 if(reqLength < 0 ){
   res.status(404).send({
@@ -50,8 +51,7 @@ if(reqLength < 0 ){
     }
   });
 } else {
-  //Length of the request
-const reqLength = requestSample.response.length;
+
 
 //Loop through all objects of the request
   for(let i=0; i<reqLength; i++) {
