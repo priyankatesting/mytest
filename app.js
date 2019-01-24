@@ -14,14 +14,52 @@ app.get('/urlget', ((req, res, next) => {
   })
 )
 
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: "Could not decode request: JSON parsing failed"
+  })
+});
+
 //Sample POST
 app.post('/urlpost', ((req, res, next) => {
-  const responseSample = {
-    response: req.body.payload
-  }
-const reqLength = responseSample.response.length;
-
   const responseExpected = [];
+  const responseSample = {  response: req.body.payload }
+  const responseHeader = {  header: req.headers }
+
+
+  //Header valid
+  if(responseHeader.header["content-type"] !== 'application/json'){
+    res.status(404).send({
+      // message: 'POST Works!',
+      response: {
+        error: "Could not decode request: JSON parsing failed"
+      }
+    });
+  }
+
+if(responseSample){
+
+}
+else {
+  res.status(404).send({
+    // message: 'POST Works!',
+    response: {
+      error: "Could not decode request: JSON parsing failed"
+    }
+  });
+}
+
+//Length of array
+if(reqLength < 0 ){
+  res.status(404).send({
+    // message: 'POST Works!',
+    response: {
+      error: "Could not decode request: JSON parsing failed"
+    }
+  });
+} else {
+const reqLength = responseSample.response.length;
 
   for(let i=0; i<reqLength; i++){
     let respElem = responseSample.response[i];
@@ -34,9 +72,12 @@ const reqLength = responseSample.response.length;
       }
     }
     res.status(200).json({
-      // message: 'POST Works!',
+       length: reqLength,
       response: responseExpected
     });
+
+}
+
   })
 )
 
