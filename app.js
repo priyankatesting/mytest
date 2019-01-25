@@ -15,6 +15,13 @@ app.use((error, req, res, next) => {
   })
 });
 
+//Sample GET - Testing purpose only
+app.get('/urlget', ((req, res, next) => {
+    res.status(200).json({
+      message: 'GET Works!'
+    });
+  })
+)
 //Sample POST
 app.post('/urlpost', ((req, res, next) => {
   const responseExpected = [];
@@ -30,8 +37,9 @@ app.post('/urlpost', ((req, res, next) => {
         error: "Could not decode request: JSON parsing failed"
       }
     });
+    return;
   }
-  
+
   //Length of the request
 const reqLength = requestSample.response.length;
 //Error Handling  - Length of array
