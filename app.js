@@ -3,6 +3,7 @@
 const express    = require('express');
 const bodyParser = require('body-parser');
 const app        = express();
+const fs         = require('fs');
 
 //For easy JSON Parsing
 app.use(bodyParser.json());
@@ -15,24 +16,35 @@ app.use((error, req, res, next) => {
   })
 });
 
-//Sample GET - Testing purpose only
-app.get('/urlget', ((req, res, next) => {
-    res.status(200).json({
-      message: 'GET Works!'
-    });
-  })
-)
+// //Sample GET - Testing purpose only
+// app.get('/urlget', ((req, res, next) => {
+//     res.status(200).json({
+//       message: 'GET Works!'
+//     });
+//   })
+// )
+
 //Sample POST
 app.post('/urlpost', ((req, res, next) => {
-  const responseExpected = [];
-  const requestSample = {  response: req.body.payload }
-  const requestHeader = {  header: req.headers }
+  const responseArray = [];
+  const reqBody       = {  payload: req.body.payload }
+  const reqHeader     = {  header:  req.headers }
 
 
-  //Error Handling  - for Header valid
-  if(requestHeader.header["content-type"] !== 'application/json'){
+  //Error Handling  - for Header validity - 404 for invalid headers
+  if(reqHeader.header["content-type"] !== 'application/json'){
     res.status(404).send({
-      // message: 'POST Works!',
+      response: {
+        error: "Could not decode request: JSON parsing failed"
+      }
+    });
+    return;
+  }
+
+  //Error Handling  - for JSON validity - 500 for invalid JSON data
+  if(!Array.isArray(reqBody.payload))
+  {
+    res.status(500).send({
       response: {
         error: "Could not decode request: JSON parsing failed"
       }
@@ -41,38 +53,36 @@ app.post('/urlpost', ((req, res, next) => {
   }
 
   //Length of the request
-const reqLength = requestSample.response.length;
-//Error Handling  - Length of array
-if(reqLength <= 0 ){
-  res.status(404).send({
-      error: "Input length is zero"
-  });
-} else {
+  const reqLength = reqBody.payload.length;
+  //Error Handling  - Length of array
+  if(reqLength <= 0 ){
+    res.status(404).send({
+        error: "Input length is zero"
+    });
+    return;
+  } else {
+    // let filteredBody = reqBody.payload.filter(
+    //   reqElement => reqElement.hasOwnProperty("drm") && reqElement.hasOwnProperty("episodeCount")
+    // );
 
-  for(let i=0; i < reqLength; i++) {
-    let reqElement = requestSample.response[i];
-    let drmExists  = reqElement.hasOwnProperty("drm");
-    let episodeCountExists = reqElement.hasOwnProperty("episodeCount");
-    //Only if conditions are true, push to responseExpected array
-    if(drmExists && episodeCountExists) {
-      if(reqElement["drm"] === true && reqElement["episodeCount"] > 0) {
-        responseExpected.push({
-              image: reqElement["image"].showImage,
-              slug:  reqElement["slug"],
-              title: reqElement["title"]
-        });
-      } else {
-        //do nothing
-      }
-    } else {
-      //do nothing
+    let finalArray = reqBody.payload.filter(
+      (reqElement => reqElement["drm"] === true && reqElement["episodeCount"] > 0)
+    );
+
+    for(let i=0; i < finalArray.length; i++) {
+      let elem = finalArray[i];
+      //Only if conditions are true, push to responseArray array
+          responseArray.push({
+                image: elem["image"].showImage,
+                slug:  elem["slug"],
+                title: elem["title"]
+          });
     }
-  }
-  //Set success status & Send the responseExpected array in json format
-  res.status(200).json({
-    response: responseExpected
-  });
-}
-}));
+      //Set success status & Send the responseArray array in json format
+      res.status(200).json({
+        response: responseArray
+      });
+    }
+    }));
 
 module.exports = app;

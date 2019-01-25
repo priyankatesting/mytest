@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha ./tests --recursive"
+    "test": "mocha ./tests --recursive",
+    "debug": "node server.js --inspect",
+    "only-test": "mocha --inspect-brk ./tests/testendpointPOST.js"
   },
   "author": "Priyanka",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "chai-http": "^4.2.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "jsonfile": "^5.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

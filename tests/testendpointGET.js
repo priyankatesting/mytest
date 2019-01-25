@@ -17,14 +17,14 @@ describe('API endpoint /geturl', function() {
   });
 });
 
-//Correct GET URL
-describe('API endpoint /urlget', function() {
-  // GET - List all colors
-  it('should return status 200', function() {
-    return chai.request(app)
-      .get('/urlget')
-      .then(function(res) {
-        expect(res).to.have.status(200);
-      });
-  });
-});
+// //Correct GET URL
+// describe('API endpoint /urlget', function() {
+//   // GET - List all colors
+//   it('should return status 200', function() {
+//     return chai.request(app)
+//       .get('/urlget')
+//       .then(function(res) {
+//         expect(res).to.have.status(200);
+//       });
+//   });
+// });
