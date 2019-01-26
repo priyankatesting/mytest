@@ -73,9 +73,9 @@ app.post('/urlpost', ((req, res, next) => {
       let elem = finalArray[i];
       //Only if conditions are true, push to responseArray array
           responseArray.push({
-                image: elem["image"].showImage,
-                slug:  elem["slug"],
-                title: elem["title"]
+                image: elem["image"].showImage || null,
+                slug:  elem["slug"] || null,
+                title: elem["title"] || null
           });
     }
       //Set success status & Send the responseArray array in json format
