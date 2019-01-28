@@ -129,7 +129,7 @@ describe('API endpoint /urlpost', function() {
   it('should return status 200 for valid array(actual request array)', function() {
     var fs = require('fs');
     requestObject = (fs.readFileSync('./tests/actualrequestdata', 'utf8'));
-    debugger;
+    //debugger;
     return chai
       .request(app)
       .post('/urlpost')
@@ -154,7 +154,7 @@ describe('API endpoint /urlpost', function() {
   it('should return status 200 for valid array(drm missing in one data)', function() {
     var fs = require('fs');
     requestObject = (fs.readFileSync('./tests/datawith_missing_drm', 'utf8'));
-    debugger;
+    //debugger;
     return chai
       .request(app)
       .post('/urlpost')
@@ -179,7 +179,7 @@ describe('API endpoint /urlpost', function() {
   it('should return status 200 for valid array(episodeCount missing in one data)', function() {
     var fs = require('fs');
     requestObject = (fs.readFileSync('./tests/datawith_missing_episodeCount', 'utf8'));
-    debugger;
+    //debugger;
     return chai
       .request(app)
       .post('/urlpost')
@@ -204,7 +204,7 @@ describe('API endpoint /urlpost', function() {
   it('should return status 200 for valid array(episodeCount & drm missing in one data)', function() {
     var fs = require('fs');
     requestObject = (fs.readFileSync('./tests/datawith_missing_drm_and_episodeCount', 'utf8'));
-    debugger;
+    //debugger;
     return chai
       .request(app)
       .post('/urlpost')
