@@ -28,7 +28,7 @@ As a first step, run `npm install` first,
 Then, 
 
 
-npm run start     -> Will start the test and run a server (defined in ENV variables or 3000)
+npm run start     -> Will start the test and run a server (defined in ENV variables or on port:3000 if ENV not defined)
 
 
 npm run test      -> Will run all the unit tests available recursively
