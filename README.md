@@ -22,7 +22,7 @@ Sample Output:
 Heroku 
 
 # How to run
-As a first step, run `npm install` first, 
+As a first step, run `npm install`, 
 
 
 Then, 
