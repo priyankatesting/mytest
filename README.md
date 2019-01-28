@@ -1,5 +1,5 @@
 # mytest
-A NODEJS API REST application that teakes in JSON request , modify it and send back the filtered response in JSON.  
+A NODEJS API REST application that takes in JSON request , modify it and send back the filtered response in JSON.  
 
 The URL for this project is https://mytest-api.herokuapp.com/urlpost
 
