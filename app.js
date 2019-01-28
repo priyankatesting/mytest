@@ -4,6 +4,9 @@ const express    = require('express');
 const bodyParser = require('body-parser');
 const app        = express();
 const fs         = require('fs');
+//const cors       = require('cors');
+//app.use(cors());
+//app.options('*', cors());
 
 //For easy JSON Parsing
 app.use(bodyParser.json());
