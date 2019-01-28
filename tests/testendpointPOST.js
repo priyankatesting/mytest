@@ -44,7 +44,7 @@ describe('API endpoint /urlpost', function() {
 });
 
 
-//Test for correct json value
+//Test for correct json format, irrespective of the value inside
 //----------------------------------------------------
 describe('API endpoint /urlpost', function() {
   // GET - List all colors
@@ -65,7 +65,7 @@ describe('API endpoint /urlpost', function() {
   });
 });
 
-//Test for INCORRECT json value
+//Test for INCORRECT json format
 //----------------------------------------------------
 describe('API endpoint /urlpost', function() {
   it('should return status 500 for incorrect JSON format', function() {
